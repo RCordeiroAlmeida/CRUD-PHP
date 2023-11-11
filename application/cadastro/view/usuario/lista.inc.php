@@ -1,5 +1,4 @@
 <?php
-var_dump($_SESSION)
 if (!isset($_SESSION)) {
     echo '<script>window.location="?module=index&acao=logout"</script>';
 }
