@@ -18,7 +18,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMWEB</title>
+    <title>CRUD-PHP</title>
     <link href="application/images/favicon.png" rel="icon">
     <link href="library/inspinia/css/bootstrap.min.css" rel="stylesheet">
     <link href="library/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
