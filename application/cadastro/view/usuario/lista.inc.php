@@ -1,18 +1,6 @@
 <?php
-if (!isset($_SESSION)) {
-    echo '<script>window.location="?module=index&acao=logout"</script>';
-}
-$sql = "SELECT * FROM usuario AS u INNER JOIN usuario_permissao AS p ON u.upe_cod = p.upe_cod WHERE u.usu_situacao = 1";
-$ati = $data->find('dynamic', $sql);
-
-$sql = "SELECT * FROM usuario AS u INNER JOIN usuario_permissao AS p ON u.upe_cod = p.upe_cod WHERE usu_situacao = 0";
-$ina = $data->find('dynamic', $sql);
-
-$user = [$_SESSION['sim_userId'], $_SESSION['sim_userName']];
-
-$sql = "SELECT upe_descricao FROM usuario_permissao WHERE upe_cod = " . $_SESSION['sim_userPermissao'];
-$usu_cargo = $data->find('dynamic', $sql);
-
+    $sql = 'SELECT * FROM usuario WHERE usu_situacao = 1';
+    $result = $data->find('dynamic', $sql);
 ?>
 
 <script>
@@ -92,53 +80,37 @@ $usu_cargo = $data->find('dynamic', $sql);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        if ($_SESSION['sim_userPermissao'] == 1) {
-                                            for ($i = 0; $i < count($ati); $i++) {
-                                                echo '
-                                                    <tr>
-                                                        <td>' . str_pad($ati[$i]['usu_cod'], 4, '0', STR_PAD_LEFT) . '</td>
-                                                        <td>' . $ati[$i]['usu_nome'] . '</td>
-                                                        <td>' . $ati[$i]['upe_descricao'] . '</td>
-                                                        <td>
-                                                            <a href="#" onclick="nextPage(\'?module=cadastro&acao=visualiza_usuario\', ' . $ati[$i]['usu_cod'] . ')">
-                                                                <span class="fa-stack">
-                                                                    <i class="fa fa-square fa-stack-2x"></i>
-                                                                    <i class="fa fa-eye fa-stack-1x fa-inverse"></i>
-                                                                </span>
-                                                            </a>
-                                                            <a href="#" onclick="nextPage(\'?module=cadastro&acao=edita_usuario\', '.$ati[$i]['usu_cod'].')">
-                                                                <span class="fa-stack">
-                                                                    <i class="fa fa-square fa-stack-2x"></i>
-                                                                    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                                                </span>
-                                                            </a>
-                                                            <a href="#" onClick=\'inativar("' . $ati[$i]['usu_cod'] . '", "' . $ati[$i]['usu_nome'] . '");\' title="Inativar Usuário" style="text-decoration:none;">
-                                                                <span class="fa-stack">
-                                                                    <i class="fa fa-square fa-stack-2x"></i>
-                                                                    <i class="fa fa-thumbs-o-down fa-stack-1x fa-inverse"></i>
-                                                                </span>
-                                                            </a>
-                                                        </td>
-                                                    ';
-                                            }
-                                        } else {
-                                            echo '
-                                                    <tr>
-                                                        <td>' . str_pad($user[0], 4, '0', STR_PAD_LEFT) . '</td>
-                                                        <td>' . $user[1] . '</td>
-                                                        <td>' . $usu_cargo[0]['upe_descricao'] . '</td>
-                                                        <td><a href="#" onclick="nextPage(\'?module=cadastro&acao=edita_usuario\', ' . $user[0] . ')">
-                                                            <span class="fa-stack">
+                                      <?php
+                                        for($i = 0; $i<count($result); $i++){
+                                            echo'
+                                                <tr>
+                                                    <td>'.$result[$i]['usu_cod'].'</td>
+                                                    <td>'.$result[$i]['usu_nome'].'</td>
+                                                    <td>'.$result[$i]['usu_nivel'].'</td>
+                                                    <td>
+                                                        <a href= "#" onclick="nextPage(\'?module=cadastro&acao=visualiza_usuario\', '.$result[$i]['usu_cod'].')">
+                                                            <span class ="fa-stack">
+                                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                                <i class="fa fa-eye fa-stack-1x fa-inverse"></i>
+                                                            </span>
+                                                        </a> 
+                                                        <a href= "#">
+                                                            <span class ="fa-stack">
                                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                                 <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                                             </span>
-                                                        </a>                                                 
-                                                    </tr>
-
-                                                ';
+                                                        </a> 
+                                                        <a href= "#">
+                                                            <span class ="fa-stack">
+                                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                                <i class="fa fa-thumbs-o-down fa-stack-1x fa-inverse"></i>
+                                                            </span>
+                                                        </a> 
+                                                    </td>
+                                                </tr>
+                                            ';
                                         }
-                                        ?>
+                                      ?>
                                     </tbody>
                                 </table>
                             </div>

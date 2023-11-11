@@ -1,15 +1,3 @@
-<?php
-    if(!isset($_SESSION) || $_SESSION['sim_userPermissao'] != 1){
-        echo'<script>window.location="?module=index&acao=logout"</script>';
-    }  
-    
-    $sql = "SELECT upe_cod, upe_descricao FROM usuario_permissao WHERE upe_situacao = 1";
-    $nivel = $data->find('dynamic', $sql);
-
-    $sql = "SELECT sim_cod, sim_titulo FROM sim WHERE sim_situacao = 1";
-    $sim = $data->find('dynamic', $sql);
-?>
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9 col-xs-8">
         <h2>Usuários</h2>
@@ -41,60 +29,41 @@
                 </a>
             </div>
         </div>
-
-        <div class="ibox-content">
-            <form role="form" action="?module=cadastro&acao=grava_usuario" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
-
-                <div class="row form-group">
-                    <div class="col-sm-6">
-                        <label class="control-label" for="usu_nome">Nome de usuário:</label>
-                        <input name="usu_nome" type="text" class="form-control blockenter" id="usu_nome" style="text-transform:uppercase;" required />
-                    </div>
-
-                    <div class="col-sm-3">
-                        <label class="control-label" for="usu_login">Login:</label>
-                        <input name="usu_login" type="text" class="form-control blockenter" id="usu_login" required />
-                    </div>
-
-                    <div class="col-sm-3">
-                        <label class="control-label" for="usu_senha">Senha:</label>
-                        <input name="usu_senha" type="password" class="form-control blockenter" id="usu_senha" required />
-                    </div>
-                </div>
-
-                <div class="row form-group">
-
-                    <div class="col-sm-6">
-                        <label class="control-label" for="usu_email">E-mail:</label>
-                        <input name="usu_email" type="text" class="form-control blockenter" id="usu_email" required />
-                    </div>
-                    <div class="col-sm-3">
-                        <label class="control-label" for="upe_cod">Nível:</label>
-                        <select class="form-control selectpicker" data-live-search="true" data-size="6" name="upe_cod" id="upe_cod" onchange="setor(this.value);" required>
-                            <option value="">-- Selecione --</option>
-                            <?php
-                                for ($i = 0; $i < count($nivel); $i++) {
-                                    echo '<option value="' . $nivel[$i]['upe_cod'] . '">' . $nivel[$i]['upe_descricao'] . '</option>';
-                                }
-                           ?>
-                        </select>
-                    </div>
-                    <div class="col-sm-3" id="cid_cod" style="display: none">
-                        <label class="control-label" for="cid_cod">SIM:</label>
-                        <select class="form-control selectpicker" data-live-search="true" data-size="6" name="cid_cod" id="cid_cod" required>
-                            <option value="" selected disabled>-- Selecione --</option>
-                            <?php
-                                for ($i = 0; $i < count($sim); $i++) {
-                                    echo '<option value="'.$sim[$i]['sim_cod'].'">' . $sim[$i]['sim_titulo'] . '</option>';
-                                }
-                           ?>
-                        </select>
-                    </div>
-                </div>
-            </form>
-
-        </div>
     </div>
+    <div class="ibox-content">
+        <form action="?module=cadastro&acao=grava_usuario" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
+           <div class="row form-group">
+                <div class="col-sm-6">
+                    <label for="usu_nome" class="control-label">Nome de usuário:</label>
+                    <input type="text" class="form-control blockenter" id="usu_nome" name="usu_nome" style="text-transform:uppercase" required>
+                </div>
+                <div class="col-sm-3">
+                    <label for="usu_login" class="control-label">Login:</label>
+                    <input type="text" class="form-control blockenter" id="usu_login" name="usu_login" required>
+                </div>
+                <div class="col-sm-3">
+                    <label for="usu_senha" class="control-label">Senha:</label>
+                    <input type="password" class="form-control blockenter" id="usu_senha" name="usu_senha" required>
+                </div>
+           </div> 
+           <div class="row form-group">
+                <div class="col-sm-6">
+                    <label for="usu_email" class="control-label">E-mail:</label>
+                    <input type="text" class="form-control blockenter" id="usu_email" name="usu_email" required>
+                </div>
+                <div class="col-sm-3">
+                    <label for="usu_nivel" class="control-label">Nível</label>
+                    <select class="form-control selectpicker" data-live-search="true" data-size="6" name="usu_nivel" id="usu_nivel" required>
+                        <option value="" disabled selected>--Selecione--</option>
+                        <option value="admin">Administrador</option>
+                        <option value="vendedor">Vendedor</option>
+                        <option value="usuario">Usuário</option>
+                    </select>
+                </div>
+           </div>        
+        </form>
+    </div>
+
 
 <script>
     

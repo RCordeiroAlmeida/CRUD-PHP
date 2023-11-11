@@ -1,20 +1,25 @@
 <?php
+
+use Mpdf\Tag\B;
+
 switch ($_GET['acao']) {
 
   case 'grava_usuario':
+    $aux['usu_nome']          =$_POST['usu_nome'];
+    $aux['usu_login']         =$_POST['usu_login'];
+    $aux['usu_senha']         =md5($_POST['usu_senha']);
+    $aux['usu_email']         =$_POST['usu_email'];
+    $aux['usu_nivel']           =$_POST['usu_nivel'];
 
-    $aux['usu_nome']            = addslashes(mb_strtoupper($_POST['usu_nome'], 'UTF-8'));
-    $aux['usu_login']           = $_POST['usu_login'];
-    $aux['usu_senha']           = md5($_POST['usu_senha']);
-    $aux['usu_email']           = $_POST['usu_email'];
-    $aux['upe_cod']             = $_POST['upe_cod'];
-    $aux['sim_cod']             = $_POST['sim_cod'];
-    
     $data->tabela = 'usuario';
     $data->add($aux);
-    echo '<script>window.location = "?module=cadastro&acao=lista_usuario&ms=1";</script>';
+    echo '
+      <script>
+        window.location="?module=cadastro&acao=lista_usuario"
+      </script>
+    ';
+    break;
 
-  break;
 
   case 'update_usuario':
     
