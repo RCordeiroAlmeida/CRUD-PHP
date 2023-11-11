@@ -15,7 +15,7 @@ class MySql
         $server   = 'localhost';	 //Endereço do servidor
 		$user     = 'root';			 // Usuário		
 		$passw	  = '';	     // Senha
-		$database = 'crud-php';	 // Nome Banco
+		$database = 'crudPHP';	 // Nome Banco
 		
 		$this->conn = mysqli_connect($server, $user, $passw, $database);
         mysqli_set_charset($this->conn, "utf8");
